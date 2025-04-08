@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scratch Quiz για Δημοτικό</title>
+    <title>Διόρθωση Kώδικα Στο Scratch</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -27,9 +27,9 @@
         .question {
             margin-bottom: 25px;
             padding: 15px;
-            border: 2px solid #74b9ff;
             border-radius: 10px;
             background-color: #f7fbff;
+            border-left: 4px solid #74b9ff;
         }
         .question img {
             max-width: 100%;
@@ -40,50 +40,46 @@
             border-radius: 5px;
         }
         .options {
+            display: flex;
+            gap: 15px;
             margin-top: 10px;
         }
         .option {
-            margin: 10px 0;
-            padding: 8px;
-            cursor: pointer;
+            padding: 8px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            border: 2px solid #74b9ff;
+            background-color: white;
+            transition: all 0.3s;
         }
         .option:hover {
             background-color: #dfe6e9;
         }
-        .option input {
-            margin-right: 10px;
-        }
-        button {
+        .option.selected {
             background-color: #74b9ff;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            display: block;
-            margin: 20px auto;
-            transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #0984e3;
+        .correct {
+            border-left: 4px solid #55efc4;
         }
-        .feedback {
-            display: none;
-            padding: 10px;
+        .incorrect {
+            border-left: 4px solid #ff7675;
+        }
+        .answer-feedback {
             margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct-answer {
+            background-color: #55efc4;
+            padding: 8px;
             border-radius: 5px;
             font-weight: bold;
         }
-        .correct {
-            background-color: #55efc4;
-            color: #006341;
-        }
-        .incorrect {
-            background-color: #ff7675;
-            color: #7f0000;
+        .explanation {
+            margin-top: 8px;
+            font-style: italic;
         }
         .score {
             text-align: center;
@@ -94,110 +90,117 @@
     </style>
 </head>
 <body>
-    <h1>Κουίζ Scratch για Δημοτικό</h1>
+    <h1>🎮 Κουίζ Scratch για Δημοτικό</h1>
     <div class="quiz-container">
-        <div id="question1" class="question">
-            <h3>Ερώτηση 1: Όταν πατηθεί η σημαία, θέλουμε να κινηθεί 10 βήματα για πάντα</h3>
+        <div id="q1" class="question">
+            <h3>1. Όταν πατηθεί η σημαία, θέλουμε να κινηθεί 10 βήματα για πάντα</h3>
             <img src="https://github.com/user-attachments/assets/0a569bd0-88a4-4ff6-a1ca-f47f911f11f8" alt="Scratch κώδικας ερώτησης 1">
             <div class="options">
-                <div class="option" onclick="checkAnswer(1, true)"><input type="radio" name="q1"> Σωστό</div>
-                <div class="option" onclick="checkAnswer(1, false)"><input type="radio" name="q1"> Λάθος</div>
+                <div class="option" onclick="checkAnswer(1, false)">Σωστό</div>
+                <div class="option" onclick="checkAnswer(1, true)">Λάθος</div>
             </div>
-            <div id="feedback1" class="feedback"></div>
+            <div class="answer-feedback" id="feedback1">
+                <div class="correct-answer">Σωστή απάντηση: Λάθος</div>
+                <div class="explanation">Είναι λάθος καθώς δεν είναι ενωμένο με την σημαία</div>
+            </div>
         </div>
 
-        <div id="question2" class="question">
-            <h3>Ερώτηση 2: Όταν πατηθεί η σημαία, πες "Γεια" για 2 δευτερόλεπτα</h3>
+        <div id="q2" class="question">
+            <h3>2. Όταν πατηθεί η σημαία, πες "Γεια" για 2 δευτερόλεπτα</h3>
             <img src="https://github.com/user-attachments/assets/951e4d23-6f9e-4322-9151-4fded088a36d" alt="Scratch κώδικας ερώτησης 2">
             <div class="options">
-                <div class="option" onclick="checkAnswer(2, true)"><input type="radio" name="q2"> Σωστό</div>
-                <div class="option" onclick="checkAnswer(2, false)"><input type="radio" name="q2"> Λάθος</div>
+                <div class="option" onclick="checkAnswer(2, false)">Σωστό</div>
+                <div class="option" onclick="checkAnswer(2, true)">Λάθος</div>
             </div>
-            <div id="feedback2" class="feedback"></div>
+            <div class="answer-feedback" id="feedback2">
+                <div class="correct-answer">Σωστή απάντηση: Λάθος</div>
+                <div class="explanation">Είναι λάθος καθώς λέει για 0 δευτερόλεπτα (δεν εμφανίζεται)</div>
+            </div>
         </div>
 
-        <div id="question3" class="question">
-            <h3>Ερώτηση 3: Όταν πατηθεί η σημαία, πήγαινε στο x:0 y:0</h3>
+        <div id="q3" class="question">
+            <h3>3. Όταν πατηθεί η σημαία, πήγαινε στο x:0 y:0</h3>
             <img src="https://github.com/user-attachments/assets/9193ebc3-6dc4-404e-8e3e-ddc36035f383" alt="Scratch κώδικας ερώτησης 3">
             <div class="options">
-                <div class="option" onclick="checkAnswer(3, true)"><input type="radio" name="q3"> Σωστό</div>
-                <div class="option" onclick="checkAnswer(3, false)"><input type="radio" name="q3"> Λάθος</div>
+                <div class="option" onclick="checkAnswer(3, true)">Σωστό</div>
+                <div class="option" onclick="checkAnswer(3, false)">Λάθος</div>
             </div>
-            <div id="feedback3" class="feedback"></div>
+            <div class="answer-feedback" id="feedback3">
+                <div class="correct-answer">Σωστή απάντηση: Σωστό</div>
+                <div class="explanation">Είναι σωστό</div>
+            </div>
         </div>
 
-        <div id="question4" class="question">
-            <h3>Ερώτηση 4: Όταν πατηθεί πάνω στο αντικείμενο, να κινηθεί 10 βήματα για πάντα</h3>
+        <div id="q4" class="question">
+            <h3>4. Όταν πατηθεί πάνω στο αντικείμενο, να κινηθεί 10 βήματα για πάντα</h3>
             <img src="https://github.com/user-attachments/assets/edb0e56a-0b1f-431b-95bc-81e938613d92" alt="Scratch κώδικας ερώτησης 4">
             <div class="options">
-                <div class="option" onclick="checkAnswer(4, true)"><input type="radio" name="q4"> Σωστό</div>
-                <div class="option" onclick="checkAnswer(4, false)"><input type="radio" name="q4"> Λάθος</div>
+                <div class="option" onclick="checkAnswer(4, true)">Σωστό</div>
+                <div class="option" onclick="checkAnswer(4, false)">Λάθος</div>
             </div>
-            <div id="feedback4" class="feedback"></div>
+            <div class="answer-feedback" id="feedback4">
+                <div class="correct-answer">Σωστή απάντηση: Σωστό</div>
+                <div class="explanation">Είναι σωστό</div>
+            </div>
         </div>
 
-        <div id="question5" class="question">
-            <h3>Ερώτηση 5: Όταν πατηθεί η σημαία, να πει για 10 φορές "Απαντήσεις"</h3>
+        <div id="q5" class="question">
+            <h3>5. Όταν πατηθεί η σημαία, να πει για 10 φορές "Απαντήσεις"</h3>
             <img src="https://github.com/user-attachments/assets/ec70de1c-8d08-48e5-8b97-528838f1cbf6" alt="Scratch κώδικας ερώτησης 5">
             <div class="options">
-                <div class="option" onclick="checkAnswer(5, true)"><input type="radio" name="q5"> Σωστό</div>
-                <div class="option" onclick="checkAnswer(5, false)"><input type="radio" name="q5"> Λάθος</div>
+                <div class="option" onclick="checkAnswer(5, false)">Σωστό</div>
+                <div class="option" onclick="checkAnswer(5, true)">Λάθος</div>
             </div>
-            <div id="feedback5" class="feedback"></div>
+            <div class="answer-feedback" id="feedback5">
+                <div class="correct-answer">Σωστή απάντηση: Λάθος</div>
+                <div class="explanation">Είναι λάθος καθώς επαναλαμβάνει 0 φορές</div>
+            </div>
         </div>
 
-        <button onclick="showResults()">Εμφάνιση Αποτελεσμάτων</button>
         <div id="score" class="score"></div>
     </div>
 
     <script>
-        const correctAnswers = [false, false, true, true, false];
-        const feedbacks = [
-            "Είναι λάθος καθώς δεν είναι ενωμένο με την σημαία",
-            "Είναι λάθος καθώς λέει για 0 δευτερόλεπτα (δεν εμφανίζεται)",
-            "Είναι σωστό",
-            "Είναι σωστό",
-            "Είναι λάθος καθώς επαναλαμβάνει 0 φορές"
-        ];
-        let userAnswers = [null, null, null, null, null];
-        let score = 0;
-
-        function checkAnswer(questionNumber, userAnswer) {
+        function checkAnswer(questionNumber, isCorrect) {
+            const questionElement = document.getElementById(`q${questionNumber}`);
             const feedbackElement = document.getElementById(`feedback${questionNumber}`);
-            const isCorrect = userAnswer === correctAnswers[questionNumber - 1];
+            const options = questionElement.querySelectorAll('.option');
             
+            // Remove selected class from all options
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            event.target.classList.add('selected');
+            
+            // Show feedback immediately
+            feedbackElement.style.display = 'block';
+            
+            // Style question based on correctness
             if (isCorrect) {
-                feedbackElement.textContent = "Σωστή απάντηση! " + feedbacks[questionNumber - 1];
-                feedbackElement.className = "feedback correct";
+                questionElement.classList.add('correct');
+                questionElement.classList.remove('incorrect');
             } else {
-                feedbackElement.textContent = "Λάθος απάντηση. " + feedbacks[questionNumber - 1];
-                feedbackElement.className = "feedback incorrect";
+                questionElement.classList.add('incorrect');
+                questionElement.classList.remove('correct');
             }
             
-            feedbackElement.style.display = "block";
-            userAnswers[questionNumber - 1] = userAnswer;
+            // Update score
+            updateScore();
         }
-
-        function showResults() {
-            score = 0;
-            for (let i = 0; i < correctAnswers.length; i++) {
-                if (userAnswers[i] === correctAnswers[i]) {
-                    score++;
-                }
-            }
+        
+        function updateScore() {
+            const questions = document.querySelectorAll('.question');
+            let correctCount = 0;
             
-            const scoreElement = document.getElementById('score');
-            scoreElement.textContent = `Σκορ: ${score} / ${correctAnswers.length}`;
-            
-            // Show all feedbacks if not already shown
-            for (let i = 1; i <= 5; i++) {
-                const feedbackElement = document.getElementById(`feedback${i}`);
-                if (feedbackElement.style.display !== "block") {
-                    feedbackElement.textContent = feedbacks[i-1];
-                    feedbackElement.className = "feedback";
-                    feedbackElement.style.display = "block";
+            questions.forEach(question => {
+                if (question.classList.contains('correct')) {
+                    correctCount++;
                 }
-            }
+            });
+            
+            document.getElementById('score').textContent = `Σκορ: ${correctCount} / ${questions.length}`;
         }
     </script>
 </body>
